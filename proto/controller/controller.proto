@@ -1,0 +1,154 @@
+syntax="proto3";
+
+package rbdproto;
+
+service Controller {
+    rpc M2CJoin(M2CJoinReq) returns (M2CJoinAck){};
+    rpc M2CFailReport(M2CFailReportReq) returns (M2CFailReportAck){};
+    rpc M2CRGUpdate(M2CRGUpdateReq) returns (M2CRGUpdateAck){};
+    rpc M2CStateReport(M2CStateReportReq) returns (M2CStateReportAck){};
+
+    rpc Cli2CCreateVolume(Cli2CCreateVolumeReq) returns (Cli2CCreateVolumeAck){};
+    rpc Cli2CDeleteVolume(Cli2CDeleteVolumeReq) returns (Cli2CDeleteVolumeAck){};
+    rpc Cli2CUpdateVolume(Cli2CUpdateVolumeReq) returns (Cli2CUpdateVolumeAck){};
+    rpc Cli2COpenVolume(Cli2COpenVolumeReq) returns (Cli2COpenVolumeAck){};
+    rpc Cli2CCloseVolume(Cli2CCloseVolumeReq) returns (Cli2CCloseVolumeAck){};
+    rpc Cli2CCreateINode(Cli2CCreateINodeReq) returns (Cli2CCreateINodeAck){};
+    rpc Cli2CExceptionReport(Cli2CExceptionReportReq) returns (Cli2CExceptionReportAck){};
+
+
+    rpc D2CJoin(D2CJoinReq) returns (D2CJoinAck){};
+    rpc D2CStateReport(D2CStateReportReq) returns (D2CStateReportAck){};
+    rpc D2CExceptionReport(D2CExceptionReportReq) returns (D2CExceptionReportAck){};
+    rpc D2CBGRecoverReport(D2CBGRecoverReportReq) returns (D2CBGRecoverReportAck){};
+}
+
+message NULL{}
+
+message M2CJoinReq {
+    int64 MsgId = 1;
+}
+
+message M2CJoinAck {
+    int64 MsgId = 1;
+    int32 NodeId = 2;
+    int32 Ret = 3;
+}
+
+message M2CFailReportReq {
+    int64 MsgId = 1;
+    int32 FailedNode = 2;
+}
+
+message M2CFailReportAck {
+    int64 MsgId = 1;
+    int32 Ret = 2;
+}
+
+message M2CRGUpdateReq {
+    int64 MsgId = 1;
+    int32 Status = 2;
+    int32 NewNode = 3; 
+}
+
+message M2CRGUpdateAck {
+    int64 MsgId = 1;
+    int32 Ret = 2;
+}
+
+message M2CStateReportReq {
+    int64 MsgId = 1;
+}
+
+message M2CStateReportAck {
+    int64 MsgId = 1;
+}
+
+message Cli2CCreateVolumeReq {
+    int64 MsgId = 1;
+}
+
+message Cli2CCreateVolumeAck {
+    int64 MsgId = 1;
+}
+
+message Cli2CDeleteVolumeReq {
+    int64 MsgId = 1;
+}
+
+message Cli2CDeleteVolumeAck {
+    int64 MsgId = 1;
+}
+
+message Cli2CUpdateVolumeReq {
+    int64 MsgId = 1;
+}
+
+message Cli2CUpdateVolumeAck {
+    int64 MsgId = 1;
+}
+
+message Cli2COpenVolumeReq {
+    int64 MsgId = 1;
+}
+
+message Cli2COpenVolumeAck {
+    int64 MsgId = 1;
+}
+
+message Cli2CCloseVolumeReq {
+    int64 MsgId = 1;
+}
+
+message Cli2CCloseVolumeAck {
+    int64 MsgId = 1;
+}
+
+message Cli2CCreateINodeReq {
+    int64 MsgId = 1;
+}
+
+message Cli2CCreateINodeAck {
+    int64 MsgId = 1;
+}
+
+message Cli2CExceptionReportReq {
+    int64 MsgId = 1;
+}
+
+message Cli2CExceptionReportAck {
+    int64 MsgId = 1;
+}
+
+message D2CJoinReq {
+    int64 MsgId = 1;
+}
+
+message D2CJoinAck {
+    int64 MsgId = 1;
+}
+
+message D2CStateReportReq {
+    int64 MsgId = 1;
+}
+
+message D2CStateReportAck {
+    int64 MsgId = 1;
+}
+
+message D2CExceptionReportReq {
+    int64 MsgId = 1;
+}
+
+message D2CExceptionReportAck {
+    int64 MsgId = 1;
+}
+
+message D2CBGRecoverReportReq {
+    int64 MsgId = 1;
+}
+
+message D2CBGRecoverReportAck {
+    int64 MsgId = 1;
+}
+
