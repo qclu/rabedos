@@ -1,0 +1,23 @@
+{
+    "Id":"1",
+    "role": "datanode",
+    "Version":"1.0",
+    "Ip":"127.0.0.1",
+    "Port": "54321",
+    "prof":"60000",
+    "ZkAddr":"192.168.13.60:2181,192.168.13.72:2181,192.168.13.62:2181",
+    "MonitAdd":"127.0.0.1:8090",
+    "ClusterId":"2",
+    "LogDir": "/tmp/jfs/log",
+    "StoreType":"extentstore",
+    "ChunkInspectorInterval":"10",
+    "IDC":"101",
+    "DisksInfo":[
+            "path:/tmp/jfs/head;minsize:8;maxerrs:10"
+        ]
+}
+
+
+
+
+    

@@ -236,31 +236,31 @@ func (this *logBean) log(level string, v ...interface{}) {
 			lg = fbf.get(this.d)
 		}
 		_level = DEBUG
-		_level_lb = "[Debug] "
+		_level_lb = "[DEBUG] "
 	case "info":
 		if this.i != "" {
 			lg = fbf.get(this.i)
 		}
 		_level = INFO
-		_level_lb = "[Info] "
+		_level_lb = "[INFO] "
 	case "warn":
 		if this.w != "" {
 			lg = fbf.get(this.w)
 		}
 		_level = WARN
-		_level_lb = "[Warn] "
+		_level_lb = "[WARN] "
 	case "error":
 		if this.e != "" {
 			lg = fbf.get(this.e)
 		}
 		_level = ERROR
-		_level_lb = "[Error] "
+		_level_lb = "[ERROR] "
 	case "fatal":
 		if this.f != "" {
 			lg = fbf.get(this.f)
 		}
 		_level = FATAL
-		_level_lb = "[Fatal] "
+		_level_lb = "[FATAL] "
 	}
 	vs := make([]interface{}, 0)
 	vs = append(vs, _level_lb)
