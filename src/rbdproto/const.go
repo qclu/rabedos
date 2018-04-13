@@ -32,15 +32,6 @@ const (
 	OpOk uint8 = 0xFA
 )
 
-var (
-	ErrBadNodes           = errors.New("BadNodesErr")
-	ErrArgLenUnmatch      = errors.New("ArgLenUnmatchErr")
-	ErrAddrsNodesUnmatch  = errors.New("AddrsNodesUnmatchErr")
-	ErrBufPoolInfoUnmatch = errors.New("BufPoolDataUnmatchErr")
-	ErrBufPoolTypeUnmatch = errors.New("BufPoolTypeUnmatchErr")
-	ErrExtentIdFormat     = errors.New("ExtentIdFormatErr")
-)
-
 //buf unit pool
 const (
 	PkgDelAndCrcSize     = 5

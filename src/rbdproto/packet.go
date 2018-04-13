@@ -33,8 +33,8 @@ type PacketHeader struct {
 	Size   uint32
 	VolId  uint32
 	FileId uint32
-	Offset int64
-	ReqId  int64
+	Offset uint64
+	ReqId  uint64
 }
 
 type Packet struct {
@@ -64,8 +64,8 @@ func (p *Packet) marshalHeader(out []byte) {
 	binary.BigEndian.PutUint32(out[6:10], p.Header.Size)
 	binary.BigEndian.PutUint32(out[10:14], p.Header.VolId)
 	binary.BigEndian.PutUint32(out[14:18], p.Header.FileId)
-	binary.BigEndian.PutUint64(out[18:26], uint64(p.Header.Offset))
-	binary.BigEndian.PutUint64(out[26:34], uint64(p.Header.ReqId))
+	binary.BigEndian.PutUint64(out[18:26], p.Header.Offset)
+	binary.BigEndian.PutUint64(out[26:34], p.Header.ReqId)
 
 	return
 }
@@ -81,8 +81,8 @@ func (p *Packet) unmarshalHeader(in []byte) error {
 	p.Header.Size = binary.BigEndian.Uint32(in[6:10])
 	p.Header.VolId = binary.BigEndian.Uint32(in[10:14])
 	p.Header.FileId = binary.BigEndian.Uint32(in[14:18])
-	p.Header.Offset = int64(binary.BigEndian.Uint64(in[18:26]))
-	p.Header.ReqId = int64(binary.BigEndian.Uint64(in[26:34]))
+	p.Header.Offset = binary.BigEndian.Uint64(in[18:26])
+	p.Header.ReqId = binary.BigEndian.Uint64(in[26:34])
 
 	return nil
 }
@@ -93,38 +93,24 @@ func (p *Packet) ReleaseBuf() {
 
 func (p *Packet) GetRealDataSize() (realSize int) {
 	realSize = int(p.Header.Size)
-	if p.Header.Opcode == OpRead || p.Header.Opcode == OpMarkDelete {
-		realSize = 0
-	}
-
 	return
 }
 
-func (p *Packet) LimitDataSize(defaultDataSize int) (size int) {
-	if p.Header.Opcode == OpStreamRead && int(p.Header.Size) > defaultDataSize {
-		size = defaultDataSize
+func (p *Packet) WriteToConn(c net.Conn, deadlineTime time.Duration) (err error) {
+	if p.Header.Size != len(p.Data) {
 		return
 	}
-
-	return int(p.Header.Size)
-}
-
-func (p *Packet) WriteToConn(c net.Conn, deadlineTime time.Duration, freeBody bool) (err error) {
 	c.SetWriteDeadline(time.Now().Add(deadlineTime * time.Second))
 	header, _ := headBufPool.Get(HeaderSize)
 
 	p.marshalHeader(header)
 	if _, err = c.Write(header); err == nil {
 		if p.Data != nil {
-			_, err = c.Write(p.Data[:p.GetRealDataSize()])
+			_, err = c.Write(p.Data[:])
 		}
 	}
 
 	headBufPool.Free(header)
-	if freeBody {
-		p.ReleaseBuf()
-	}
-
 	return
 }
 
